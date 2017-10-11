@@ -50,6 +50,23 @@ class BinarySearchTree
     yield node
   end
 
+  def check_height(node)
+    return 0 if node.nil?
+
+    leftHeight = check_height(node.left)
+    return -1 if leftHeight == -1
+
+    rightHeight = check_height(node.right)
+    return -1 if rightHeight == -1
+
+    diff = leftHeight - rightHeight
+    if diff.abs > 1
+      -1
+    else
+      [leftHeight, rightHeight].max + 1
+    end
+  end
+
   def is_balanced?(node=@root)
     check_height(node) == -1 ? false : true
   end
